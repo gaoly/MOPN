@@ -222,6 +222,8 @@ class DRL4TSP(nn.Module):
 
                 while not torch.gather(mask, 1, ptr.data.unsqueeze(1)).byte().all():
                     ptr = m.sample()
+                if i == 0:
+                    ptr = torch.randint(0, sequence_size, (1,batch_size), device=device).squeeze()
                 logp = m.log_prob(ptr)
 
             else:
